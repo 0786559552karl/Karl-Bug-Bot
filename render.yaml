@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: karl-ai
+    env: node
+    plan: starter # free plan will spin down on inactivity and disconnect the bot — see README
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /status
+    envVars:
+      - key: LOGIN_METHOD
+        value: qr # or "code"
+      - key: PAIRING_NUMBER
+        value: "" # only needed if LOGIN_METHOD=code — digits only, with country code, no +
+    disk:
+      name: karl-ai-sessions
+      mountPath: /opt/render/project/src/sessions
+      sizeGB: 1
